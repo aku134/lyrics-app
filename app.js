@@ -24,4 +24,4 @@ app.all('*', async (req, res) => {
     
    
 });
-app.listen(1500)
+app.listen(process.env.PORT)
