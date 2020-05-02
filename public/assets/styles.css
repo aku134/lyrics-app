@@ -1,0 +1,41 @@
+body{
+    background: #0cd397;
+    font-family: tahoma;
+    color: #f51a1a;
+  }
+  input[type="text"]{
+    width: 30%;
+    padding: 20px;
+    background:#181c22;
+    border: 0;
+    float: center;
+    font-size: 20px;
+    color: #989898;
+  }
+  button{
+    padding: 20px;
+    width: 10%;
+    float: center;
+    background: #23282e;
+    border: 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+  }  
+ 
+  .head{
+    text-align: center;
+  }
+  .bar{
+    padding: 20px;
+    width: 10%;
+    float: center;
+    background: #23282e;
+    border: 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+
+  }

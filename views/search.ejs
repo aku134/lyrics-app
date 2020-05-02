@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    </head>
+    <body>
+    <style>
+        .bg-1{
+            background-color:cornflowerblue;
+            padding: 5px;
+
+        }
+    
+
+        
+       
+        .container-fluid {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-image: url("guitar.jpg");
+            background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+</style>
+
+
+        <header>
+            <div class="container-fluid bg-1 text-center">
+        <h1>Lyrics Finder</h1><br>
+        <h4>Find the latest lyrics right here!!</h4><br><br>
+        </div>
+        </header>
+        <br>
+        <div class="container-fluid bg-2 text-center">
+        
+        <form id=search method="POST" action="/">
+            <input type="text" class="btn" name="artist"   required/><br><br><br>
+            <input type="text" class="btn" name="song"   required/><br><br>
+            <button class="btn btn -success btn-lg" type="submit" value="search" >Search</button>
+        </form>
+    </div>
+   
+        
+    </body>
+</html>
