@@ -1,23 +1,20 @@
 const express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
-    lyrics = require("simple-get-lyrics");
+    lyrics = require("lyrics-fetcher");
 app.use(bodyParser.urlencoded({
     extended: !0
-})), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", async (e, r) => {
+})), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", (e, r) => {
     if (e.body.artist && e.body.song) {
         let s = e.body.artist,
-            p = e.body.song;
-        try {
-            let e = await lyrics.search(`${s}`, `${p}`);
-            e = e.lyrics, r.render("lyric", {
-                url: e
-            })
-        } catch (e) {
-            r.render("not found", {
+            o = e.body.song;
+        lyrics.fetch(`${s}`, `${o}`, (e, s) => {
+            "Sorry, We don't have lyrics for this song yet." == s ? r.render("not found", {
                 url: "not found"
+            }) : r.render("lyric", {
+                url: s
             })
-        }
+        })
     } else r.render("search", {
         url: !1
     })
