@@ -17,7 +17,7 @@ app.all('*', async (req, res) => {
         let artist = req.body.artist
         let song = req.body.song
         try {
-            let url = url = await lyrics.search(`${artist}`, `${song}`)
+            let url = await lyrics.search(`${artist}`, `${song}`)
             url = url.lyrics
             res.render("lyric", {
                 url: url
