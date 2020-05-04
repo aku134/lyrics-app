@@ -6,16 +6,17 @@ app.use(bodyParser.urlencoded({
     extended: !0
 })), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", async (e, r) => {
     if (e.body.artist && e.body.song) {
-        let s, p = e.body.artist,
+        let p = e.body.artist,
             a = e.body.song;
         try {
-            s = (s = await lyrics.search(`${p}`, `${a}`)).lyrics
-        } catch (e) {}
-        s ? r.render("lyric", {
+            let s = (s = await lyrics.search(`${p}`, `${a}`)).lyrics
+            r.render("lyric", {
             url: s
-        }) : r.render("not found", {
-            url: "not found"
         })
+        } catch (e) {
+         r.render("not found", {
+            url: "not found"
+        })}
     } else r.render("search", {
         url: !1
     })
