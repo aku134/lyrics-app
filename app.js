@@ -7,11 +7,9 @@ app.use(bodyParser.urlencoded({
 })), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", async (e, r) => {
     if (e.body.artist && e.body.song) {
         let s = await lyricsFinder(e.body.artist, e.body.song);
-    
-     
-           s ? r.render("lyric", {
+        s ? r.render("lyric", {
             url: s
-        }): r.render("not found", {
+        }) : r.render("not found", {
             url: "not found"
         })
     } else r.render("search", {
