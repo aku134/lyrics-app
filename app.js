@@ -1,19 +1,18 @@
 const express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
-    lyrics = require("lyrics-fetcher");
+    tiny = require("tiny-json-http");
 app.use(bodyParser.urlencoded({
     extended: !0
-})), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", (e, r) => {
+})), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", async (e, r) => {
     if (e.body.artist && e.body.song) {
-        let s = e.body.artist,
-            o = e.body.song;
-        lyrics.fetch(`${s}`, `${o}`, (e, s) => {
-            "Sorry, We don't have lyrics for this song yet." == s ? r.render("not found", {
-                url: "not found"
-            }) : r.render("lyric", {
-                url: s
-            })
+        let s = `https://rahil-lyrics-api.herokuapp.com/?title=${e.body.song}&artist=${e.body.artist}`;
+        (s = (s = await tiny.get({
+            url: s
+        })).body.lyrics) ? r.render("lyric", {
+            url: s
+        }): r.render("not found", {
+            url: "not found"
         })
     } else r.render("search", {
         url: !1
