@@ -1,6 +1,6 @@
 const express = require("express"),
-    app = express(),
     bodyParser = require("body-parser"),
+    app = express(),
     tiny = require("tiny-json-http");
 app.use(bodyParser.urlencoded({
     extended: !0
