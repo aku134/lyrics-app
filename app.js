@@ -1,16 +1,18 @@
 const express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
-    solenolyrics = require("solenolyrics");
+    lyrics = require("simple-get-lyrics");
 app.use(bodyParser.urlencoded({
     extended: !0
 })), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", async (e, r) => {
     if (e.body.artist && e.body.song) {
-        let s = e.body.artist,
-            o = e.body.song,
-            n = await solenolyrics.requestLyricsFor(`${s} ${o}`);
-        n ? r.render("lyric", {
-            url: n
+        let s, p = e.body.artist,
+            a = e.body.song;
+        try {
+            s = (s = await lyrics.search(`${p}`, `${a}`)).lyrics
+        } catch (e) {}
+        s ? r.render("lyric", {
+            url: s
         }) : r.render("not found", {
             url: "not found"
         })
