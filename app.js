@@ -1,43 +1,20 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const tiny = require('tiny-json-http')
+const express = require("express"),
+    app = express(),
+    bodyParser = require("body-parser"),
+    solenolyrics = require("solenolyrics");
 app.use(bodyParser.urlencoded({
-    extended: true
-}))
-app.set('view engine', 'ejs')
-app.use(express.static('./public'));
-
-
-
-
-app.all('*', async (req, res) => {
-
-    if (req.body.artist && req.body.song) {
-        let artist = req.body.artist
-        let song = req.body.song
-        let url = `https://orion.apiseeds.com/api/music/lyric/${artist}/${song}/?apikey=5PTn1ArO77QZVfLHoIjPNEg4RBX0WrmDTcjvYByKNcu9l5AcDYsBL2aLJBPldKqJ`
-        try {
-            url = await tiny.get({
-                url
-            })
-            url = url.body.result.track.text
-            res.render("lyric", {
-                url: url
-            })
-        } catch (e) {
-            res.render("not found", {
-                url: "not found"
-            })
-        }
-    } else {
-        res.render("search", {
-            url: false
+    extended: !0
+})), app.set("view engine", "ejs"), app.use(express.static("./public")), app.all("*", async (e, r) => {
+    if (e.body.artist && e.body.song) {
+        let s = e.body.artist,
+            o = e.body.song,
+            n = await solenolyrics.requestLyricsFor(`${s} ${o}`);
+        n ? r.render("lyric", {
+            url: n
+        }) : r.render("not found", {
+            url: "not found"
         })
-    }
-
-
-
-
-});
-app.listen(process.env.PORT || "2000")
+    } else r.render("search", {
+        url: !1
+    })
+}), app.listen(process.env.PORT || "2000");
